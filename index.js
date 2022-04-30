@@ -106,7 +106,7 @@ if (arguments.length < 3) {
 
 // Split the cron string to array (for different
 // fields) so as to parse each field separately
-let cronExpression = arguments[2].split(/\s+/);
+let cronExpression = arguments[2].trim().split(/\s+/);
 
 if (cronExpression.length != 6) {
     console.log("Invalid Inputs");
