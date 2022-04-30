@@ -7,7 +7,7 @@ This code helps is parsing the cron expression in the below format as a command 
 
 ## pre-requisites
 - Install Git
-- Install NodeJS 16 Installed
+- Install NodeJS 16
 
 ## Steps to run
 - clone the repository on the machine
@@ -16,4 +16,4 @@ This code helps is parsing the cron expression in the below format as a command 
 
 ### TODO:
   - Handling JAN-DEC and SUN-SAT for month and day of week
-  - The code assumes that the inputs are integers wherever the numbers are expected. So, additional validations needs to be added as required
+  - The code assumes that the inputs are integers wherever the numbers are expected. So, additional validations needs to be added, if required
