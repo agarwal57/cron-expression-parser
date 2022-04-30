@@ -1,0 +1,13 @@
+{
+  "name": "cronservice",
+  "version": "1.0.0",
+  "description": "nodejs module to parser the cron-expression",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Narendra Agarwal",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
