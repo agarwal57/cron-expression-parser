@@ -1,8 +1,3 @@
-// parsing each of the values
-// valid inputs are numbers , - / *
-// first split by , and then for each one 
-// validate if it is individual number
-// or */num or num-num or * 
 /**
  * 
  * @param {string} expression expression for the cron for a particular field
@@ -150,7 +145,7 @@ try {
 } catch(error) {
     console.log('dayOfWeek: ' + error.message);
 }
-// console.log(cronFieldValues);
+
 if (Object.keys(cronFieldValues).length == 6) {
     console.log('minute'.padEnd(FIELD_PADDING), cronFieldValues.minute.join(' '));
     console.log('hour'.padEnd(FIELD_PADDING), cronFieldValues.hour.join(' '));
