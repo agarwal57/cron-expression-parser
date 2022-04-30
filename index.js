@@ -1,3 +1,6 @@
+const Constants = require('./utils/constants');
+
+
 /**
  * 
  * @param {string} expression expression for the cron for a particular field
@@ -65,39 +68,6 @@ const getValues = (expression, minValue, maxValue) => {
     return values;
 }
 
-// Data related to the Minute field in Cron expression
-const MINUTE = {
-    minValue: 0,
-    maxValue: 59
-}
-
-// Data related to the Hour field in Cron expression
-const HOUR = {
-    minValue: 0,
-    maxValue: 23
-}
-
-// Data related to the Day of Month field in Cron expression
-const DAY_OF_MONTH = {
-    minValue: 1,
-    maxValue: 31
-}
-
-// Data related to the Month field in Cron expression
-const MONTH = {
-    minValue: 1,
-    maxValue: 12
-}
-
-// Data related to the Day of Week field in Cron expression
-const DAY_OF_WEEK = {
-    minValue: 0,
-    maxValue: 6
-}
-
-// Cron expression field padding
-const FIELD_PADDING = 14;
-
 let arguments = process.argv;
 if (arguments.length < 3) {
     console.log("Missing Cron String");
@@ -117,40 +87,45 @@ if (cronExpression.length != 6) {
 let cronFieldValues = {};
 cronFieldValues.command = cronExpression[5];
 try {
-    cronFieldValues.minute = getValues(cronExpression[0], MINUTE.minValue, MINUTE.maxValue);
+    cronFieldValues.minute = getValues(cronExpression[0],
+        Constants.MINUTE.minValue, Constants.MINUTE.maxValue);
 } catch(error) {
     console.log('minute: ' + error.message);
 }
 
 try {
-    cronFieldValues.hour = getValues(cronExpression[1], HOUR.minValue, HOUR.maxValue);
+    cronFieldValues.hour = getValues(cronExpression[1],
+        Constants.HOUR.minValue, Constants.HOUR.maxValue);
 } catch(error) {
     console.log('hour: ' + error.message);
 }
 
 try {
-    cronFieldValues.dayOfMonth = getValues(cronExpression[2], DAY_OF_MONTH.minValue, DAY_OF_MONTH.maxValue);
+    cronFieldValues.dayOfMonth = getValues(cronExpression[2],
+        Constants.DAY_OF_MONTH.minValue, Constants.DAY_OF_MONTH.maxValue);
 } catch(error) {
     console.log('dayOfMonth: ' + error.message);
 }
 
 try {
-    cronFieldValues.month = getValues(cronExpression[3], MONTH.minValue, MONTH.maxValue);
+    cronFieldValues.month = getValues(cronExpression[3],
+        Constants.MONTH.minValue, Constants.MONTH.maxValue);
 } catch(error) {
     console.log('month: ' + error.message);
 }
 
 try {
-    cronFieldValues.dayOfWeek = getValues(cronExpression[4], DAY_OF_WEEK.minValue, DAY_OF_WEEK.maxValue);
+    cronFieldValues.dayOfWeek = getValues(cronExpression[4],
+        Constants.DAY_OF_WEEK.minValue, Constants.DAY_OF_WEEK.maxValue);
 } catch(error) {
     console.log('dayOfWeek: ' + error.message);
 }
 
 if (Object.keys(cronFieldValues).length == 6) {
-    console.log('minute'.padEnd(FIELD_PADDING), cronFieldValues.minute.join(' '));
-    console.log('hour'.padEnd(FIELD_PADDING), cronFieldValues.hour.join(' '));
-    console.log('day of month'.padEnd(FIELD_PADDING), cronFieldValues.dayOfMonth.join(' '));
-    console.log('month'.padEnd(FIELD_PADDING), cronFieldValues.month.join(' '));
-    console.log('day of week'.padEnd(FIELD_PADDING), cronFieldValues.dayOfWeek.join(' '));
-    console.log('command'.padEnd(FIELD_PADDING), cronFieldValues.command);
+    console.log('minute'.padEnd(Constants.FIELD_PADDING),cronFieldValues.minute.join(' '));
+    console.log('hour'.padEnd(Constants.FIELD_PADDING), cronFieldValues.hour.join(' '));
+    console.log('day of month'.padEnd(Constants.FIELD_PADDING), cronFieldValues.dayOfMonth.join(' '));
+    console.log('month'.padEnd(Constants.FIELD_PADDING), cronFieldValues.month.join(' '));
+    console.log('day of week'.padEnd(Constants.FIELD_PADDING), cronFieldValues.dayOfWeek.join(' '));
+    console.log('command'.padEnd(Constants.FIELD_PADDING), cronFieldValues.command);
 }
