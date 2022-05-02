@@ -70,6 +70,7 @@ const getValues = (expression, minValue, maxValue) => {
         }
     }
 
+    // remove duplicates and sort the array
     if (values.length > 1) {
         values = [...new Set(values)];
         values.sort(sortNumber);
