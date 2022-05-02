@@ -1,6 +1,10 @@
 const Constants = require('./utils/constants');
 
-
+// comparator function to be used for
+// numerical array sorting
+const sortNumber = (a, b) => {
+    return a - b;
+}
 /**
  * 
  * @param {string} expression expression for the cron for a particular field
@@ -64,6 +68,12 @@ const getValues = (expression, minValue, maxValue) => {
         } else {
             throw new Error("Invalid input");
         }
+    }
+
+    if (values.length > 1) {
+        values = [...new Set(values)];
+        values.sort(sortNumber);
+
     }
     return values;
 }

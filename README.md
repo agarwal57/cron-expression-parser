@@ -4,6 +4,7 @@ This code helps is parsing the cron expression in the below format as a command 
 ```
 "<minute> <hour> <day of month> <month> <day of week> <command>"
 ```
+This parser evaluates only the standard formats as described at https://crontab.guru
 
 Some example valid strings
 ```
@@ -25,6 +26,7 @@ Some example valid strings
 - cd to the repository
 - Run the command "node index.js <Input>" on the terminal
 
-### TODO:
-  - Handling JAN-DEC and SUN-SAT for month and day of week
+### Known Issues:
+  - Doesnt handle string values JAN-DEC and SUN-SAT for month and day of week respectively.
+  - Doesnt handle cron expression for a field of the format (num-num)/num
   - The code assumes that the inputs are integers wherever the numbers are expected. So, additional validations needs to be added, if required
