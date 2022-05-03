@@ -18,7 +18,7 @@ const getValues = (expression, minValue, maxValue) => {
     // splitting the expression to get different ranges
     let initialRanges = expression.split(",");
     for (range of initialRanges) {
-        // range is just an integer
+        // range is just a number
         if (!isNaN(range)) {
             let value = parseInt(range);
             if (value >= minValue && value <= maxValue) {
@@ -26,8 +26,40 @@ const getValues = (expression, minValue, maxValue) => {
             } else {
                 throw new Error("Value not in range");
             }
-        // if the value is a range like a-b
-        } else if (range.includes('-')) {
+        } else if (range == '*') { // the range is *
+            for (let i = minValue; i <= maxValue; i++) {
+                values.push(i);
+            }
+        } else if (range.includes('/')) { // possible formats are */num, (num-num)/num
+            let rangeValues = range.split('/');
+            if (rangeValues.length != 2 || isNaN(rangeValues[1])) {
+                throw new Error("Invalid Step Expression");
+            }
+
+            let min, max;
+
+            if (rangeValues[0] == '*') {
+                min = minValue;
+                max = maxValue;
+            } else {
+                let newRange = rangeValues[0].split('-');
+                if (newRange.length != 2 || isNaN(newRange[0]) || isNaN(newRange[1])) {
+                    throw new Error("Invalid Step Expression");
+                }
+                min = parseInt(newRange[0]);
+                max = parseInt(newRange[1]);
+            }
+
+            // get the integer value in */num
+            let step = parseInt(rangeValues[1]);
+
+            // find all the values which are valid
+            // and push in to values array
+            while (min <= max) {
+                values.push(min);
+                min = min + step;
+            }
+        } else if (range.includes('-')) { // i.e., say from 1-5
             let rangeValues = range.split('-');
             if (rangeValues.length != 2
                 || isNaN(rangeValues[0])
@@ -43,26 +75,6 @@ const getValues = (expression, minValue, maxValue) => {
 
             // push all the values in the range
             for (let i = min; i <= max; i++) {
-                values.push(i);
-            }
-        } else if (range.includes('/')) {
-            let rangeValues = range.split('/');
-            if (rangeValues.length != 2 || rangeValues[0] != '*' || isNaN(rangeValues[1])) {
-                throw new Error("Invalid Step Expression");
-            }
-
-            // get the integer value in */num
-            let max = parseInt(rangeValues[1]);
-
-            // find all the values which are valid and push
-            // in to values array
-            for (let i = minValue; i <= maxValue; i++) {
-                if (i % max == 0) {
-                    values.push(i);
-                }
-            }
-        } else if (range == '*') {
-            for (let i = minValue; i <= maxValue; i++) {
                 values.push(i);
             }
         } else {
