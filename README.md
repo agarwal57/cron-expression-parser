@@ -27,6 +27,5 @@ Some example valid strings
 - Run the command "node index.js <Input>" on the terminal
 
 ### Known Issues:
-  - Doesnt handle string values JAN-DEC and SUN-SAT for month and day of week respectively.
   - Doesnt handle cron expression for a field of the format (num-num)/num
   - The code assumes that the inputs are integers wherever the numbers are expected. So, additional validations needs to be added, if required

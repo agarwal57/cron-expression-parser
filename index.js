@@ -97,6 +97,8 @@ if (cronExpression.length != 6) {
 
 let cronFieldValues = {};
 cronFieldValues.command = cronExpression[5];
+
+// parse the minute field
 try {
     cronFieldValues.minute = getValues(cronExpression[0],
         Constants.MINUTE.minValue, Constants.MINUTE.maxValue);
@@ -104,6 +106,7 @@ try {
     console.log('minute: ' + error.message);
 }
 
+// parse the hour field
 try {
     cronFieldValues.hour = getValues(cronExpression[1],
         Constants.HOUR.minValue, Constants.HOUR.maxValue);
@@ -111,6 +114,7 @@ try {
     console.log('hour: ' + error.message);
 }
 
+// parse the day of month field
 try {
     cronFieldValues.dayOfMonth = getValues(cronExpression[2],
         Constants.DAY_OF_MONTH.minValue, Constants.DAY_OF_MONTH.maxValue);
@@ -118,14 +122,38 @@ try {
     console.log('dayOfMonth: ' + error.message);
 }
 
+// parse the month field
 try {
+    // Update the string values JAN-DEC to corresponding integer values i.e., 1-12
+    cronExpression[3] = cronExpression[3].replace(/[a-z]{3}/gi, function(match) {
+        match = match.toUpperCase();
+
+        if (Constants.MonthAliases[match] === undefined) {
+            throw new Error("Invalid Value");
+        }
+
+        return Constants.MonthAliases[match];
+    });
+
     cronFieldValues.month = getValues(cronExpression[3],
         Constants.MONTH.minValue, Constants.MONTH.maxValue);
 } catch(error) {
     console.log('month: ' + error.message);
 }
 
+// parse the day of week field
 try {
+    // Update the string values SUN-SAT to corresponding integer values i.e., 0-6
+    cronExpression[4] = cronExpression[4].replace(/[a-z]{3}/gi, function(match) {
+        match = match.toUpperCase();
+
+        if (Constants.DayOfWeekAliases[match] === undefined) {
+            throw new Error("Invalid Value");
+        }
+
+        return Constants.DayOfWeekAliases[match];
+    });
+
     cronFieldValues.dayOfWeek = getValues(cronExpression[4],
         Constants.DAY_OF_WEEK.minValue, Constants.DAY_OF_WEEK.maxValue);
 } catch(error) {
